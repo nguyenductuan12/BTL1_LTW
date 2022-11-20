@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 		LocalDateTime Date = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		String creationDate = Date.format(formatter);
-		User user = new User(userDto.getEmail(), userDto.getUserDisplayName(), ".", 0, 0, userDto.getPassword(),
+		User user = new User(userDto.getEmail(), userDto.getUserDisplayName(), ".", userDto.getPassword(),
 				creationDate, "ROLE_USER");
 		userReponsitory.save(user);
 

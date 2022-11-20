@@ -32,10 +32,7 @@ public class UserLoginController {
         if(userService.checkUserbyEmail(userDto.getEmail())==false){
             return "redirect:/login?emailwrong";
         }
-        User user = userService.getUserbyEmail(userDto.getEmail());
-        if(user.getRole().equals("ADMIN")){
-            return  "redirect:/admin_home";
-        }
+        
         if(userService.checkPasswordUser(userDto.getEmail(),userDto.getPassword())){
             return "redirect:/books?success";
         }

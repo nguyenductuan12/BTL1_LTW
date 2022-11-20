@@ -12,6 +12,7 @@
 </head>
 
 <body>
+<th:block th:if="${userdto.email}">
     <!--Start : Header    -->
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
@@ -44,13 +45,13 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label>Tiêu đề</label> <input type="text" name="title" th:field="*{title}"
+                                    <label  class="font-weight-bold">Tiêu đề</label> <input type="text" name="title" th:field="*{title}"
                                         class="form-control" />
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label>Tác giả</label> <input type="text" name="author" th:field="*{author}"
+                                    <label  class="font-weight-bold">Tác giả</label> <input type="text" name="author" th:field="*{author}"
                                         class="form-control" />
                                 </div>
                             </div>
@@ -59,8 +60,8 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <label>Mô tả</label>
-                                    <textarea class="form-control" th:field="*{describes}"></textarea>
+                                    <label  class="font-weight-bold">Mô tả</label>
+                                    <textarea rows="4" class="form-control" th:field="*{describes}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -68,13 +69,13 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label>Ngày phát hành</label> <input type="text" name="releaseDate"
+                                    <label  class="font-weight-bold">Ngày phát hành</label> <input type="text" name="releaseDate"
                                         th:field="*{releaseDate}" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label>Số trang</label> <input type="text" name="email" th:field="*{numberOfPages}"
+                                    <label  class="font-weight-bold">Số trang</label> <input type="text" name="email" th:field="*{numberOfPages}"
                                         class="form-control" />
                                 </div>
                             </div>
@@ -83,7 +84,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="category">Thể loại</label>
+                                    <label for="category" class="font-weight-bold">Thể loại</label>
                                     <select class="form-control" name="category">
                                         <option th:value="${book.category}" th:text=${book.category}
                                             selected="selected">
@@ -96,14 +97,12 @@
                             </div>
                         </div>
 
-
-
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-right card">
                         <div>
                             <label>Photos: </label> <input type="file" name="image" accept="image/png, image/jpeg" />
                         </div>
-
+						<img th:src="@{${book.photosImagePath}}"/>
                     </div>
                 </div>
                 <br>
@@ -112,17 +111,16 @@
                     <div class="col-lg-12">
                         <div class="float-right">
                             <button  type="submit" class="btn btn-primary"
-                                id="save">Edit</button>
+                                >Edit</button>
                         </div>
                     </div>
                 </div>
-               
         </form>
         <br>
 
     </div>
 
-
+</th:block>
 </body>
 
 </html>	

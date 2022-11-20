@@ -1,41 +1,50 @@
 package com.example.managelibrary.entity;
 
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+
+
 
 @Entity
-@Table(name="books")
+@Table(name = "books")
 
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotBlank(message = "Request to enter title")
+	@Column(name = "title", nullable = false)
+	private String title;
 
-    @Column(name="title",nullable = false)
-    private String title;
+	@NotBlank(message = "Request to enter author")
+	@Column(name = "author", nullable = false)
+	private String author;
 
-    @Column(name="author",nullable = false)
-    private String author;
+	@Column(name = "describes", nullable = false)
+	private String describes;
 
-    @Column(name="describes",nullable = false)
-    private String describes;
+	@NotBlank(message = "Request to enter release date")
+	@Column(name = "release_date", nullable = false)
+	private String releaseDate;
 
-    @Column(name="release_date",nullable = false)
-    private String releaseDate;
-    
-    @Column(name="number_of_pages",nullable = false)
-    private int numberOfPages;
-    
-    @Column(name="category",nullable = false)
-    private String category;
-    
-    @Column(nullable = true, length = 64)
-    private String photos;
-    
+	@Column(name = "number_of_pages", nullable = false)
+	private int numberOfPages;
+
+	@Column(name = "category", nullable = false)
+	private String category;
+
+	@Column(nullable = true, length = 64)
+	private String photos;
+
 	public Long getId() {
 		return id;
 	}
@@ -59,7 +68,6 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
 
 	public String getReleaseDate() {
 		return releaseDate;
@@ -100,5 +108,12 @@ public class Book {
 	public void setPhotos(String photos) {
 		this.photos = photos;
 	}
-	
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (photos == null || id == null)
+			return null;
+
+		return "/book-photos/" + id + "/" + photos;
+	}
 }

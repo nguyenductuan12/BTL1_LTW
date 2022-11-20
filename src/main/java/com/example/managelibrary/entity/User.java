@@ -27,12 +27,6 @@ public class User implements Serializable {
     @Column(name = "about_me",nullable = true)
     private String AboutMe;
 
-    @Column(name = "views",nullable = false)
-    private Integer Views;
-
-    @Column(name = "topic_counts",nullable = false)
-    private Integer TopicCounts;
-
     @Column(name = "password",nullable = false)
     private String Password;
 
@@ -48,16 +42,15 @@ public class User implements Serializable {
 	}
 
 
-	public User(String Email, String userDisplayName, String aboutMe, Integer views, Integer topicCounts, String password, String creationDate, String role) {
-        email = Email;
-        UserDisplayName = userDisplayName;
-        AboutMe = aboutMe;
-        Views = views;
-        TopicCounts = topicCounts;
-        Password = password;
-        CreationDate = creationDate;
-        Role = role;
-    }
+	public User(String email, String userDisplayName, String aboutMe, String password, String creationDate,
+			String role) {
+		this.email = email;
+		UserDisplayName = userDisplayName;
+		AboutMe = aboutMe;
+		Password = password;
+		CreationDate = creationDate;
+		Role = role;
+	}
 
 
 	public Long getID() {
@@ -100,26 +93,6 @@ public class User implements Serializable {
 	}
 
 
-	public int getViews() {
-		return Views;
-	}
-
-
-	public void setViews(int views) {
-		Views = views;
-	}
-
-
-	public int getTopicCounts() {
-		return TopicCounts;
-	}
-
-
-	public void setTopicCounts(int topicCounts) {
-		TopicCounts = topicCounts;
-	}
-
-
 	public String getPassword() {
 		return Password;
 	}
@@ -148,6 +121,5 @@ public class User implements Serializable {
 	public void setRole(String role) {
 		Role = role;
 	}
-	
 	
 }

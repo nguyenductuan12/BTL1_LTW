@@ -9,9 +9,12 @@
     <title>Book Management System</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 
 <body>
+	<th:block th:if="${userdto.email}">
     <!--Start : Header    -->
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
@@ -37,93 +40,117 @@
     <h1 class="text-center">Sách</h1>
     <br>
     <div class="container">
-        <form th:action="@{/books/{id} (id=${book.id})}" th:object="${book}" method="post" id="form">
-            
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 justify-content-left">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label>Tiêu đề</label> <input type="text" name="title" th:field="*{title}"
-                                        class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label>Tác giả</label> <input type="text" name="author" th:field="*{author}"
-                                        class="form-control" />
-                                </div>
+        <form th:action="@{/books/{id} (id=${book.id})}" th:object="${book}" method="post"
+            enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 justify-content-left">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Tiêu đề</label> <input type="text" name="title"
+                                    th:field="*{title}" class="form-control" />   
+                                 <p class="alert alert-info" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}" />
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label>Mô tả</label>
-                                    <textarea class="form-control" th:field="*{describes}"></textarea>
-                                </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Tác giả</label> <input type="text" name="author"
+                                    th:field="*{author}" class="form-control" />
+                                  <p class="alert alert-info" th:if="${#fields.hasErrors('author')}" th:errorclass="error" th:errors="*{author}" />
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label>Ngày phát hành</label> <input type="text" name="releaseDate"
-                                        th:field="*{releaseDate}" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label>Số trang</label> <input type="text" name="email" th:field="*{numberOfPages}"
-                                        class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="category">Thể loại</label>
-                                    <select class="form-control" name="category">
-                                        <option th:value="${book.category}" th:text=${book.category}
-                                            selected="selected">
-                                        </option>
-                                        <option value="Châm biến">Châm biến</option>
-                                        <option value="Tiểu thuyết">Tiểu thuyết</option>
-                                        <option value="Trinh thám">Trinh thám</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-
-
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-right card">
-                        <div>
-                            <label>Photos: </label> <input type="file" name="image" accept="image/png, image/jpeg" />
-                        </div>
 
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Mô tả</label>
+                                <textarea rows="4" class="form-control" th:field="*{describes}"></textarea>
+                                 <p class="alert alert-info" th:if="${#fields.hasErrors('describes')}" th:errorclass="error" th:errors="*{describes}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Ngày phát hành</label> <input type="text"
+                                    name="releaseDate" th:field="*{releaseDate}" class="form-control" />
+                                  <p class="alert alert-info" th:if="${#fields.hasErrors('releaseDate')}" th:errorclass="error" th:errors="*{releaseDate}" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Số trang</label> <input type="text" name="email"
+                                    th:field="*{numberOfPages}" class="form-control" />
+                                <p class="alert alert-info" th:if="${#fields.hasErrors('numberOfPages')}" th:errorclass="error" th:errors="*{numberOfPages}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="category" class="font-weight-bold">Thể loại</label>
+                                <select class="form-control" name="category">
+                                    <option th:value="${book.category}" th:text=${book.category} selected="selected">
+                                    </option>
+                                    <option value="Châm biến">Châm biến</option>
+                                    <option value="Tiểu thuyết">Tiểu thuyết</option>
+                                    <option value="Trinh thám">Trinh thám</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-right card">
+                        <p>
+                            <label class="font-weight-bold">BookImg: </label> <input type="file" name="fileImage"
+                                id="fileImage" accept="image/png, image/jpeg" />
+                        </p>
+
+                        <img id="thumbnail" th:src="@{${book.photosImagePath}}" />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-right">
+                        <button th:unless="${book.id}" type="submit" class="btn btn-primary" id="add">Add</button>
+                    </div>
+                    <div class="float-right" th:if="${book.id}">
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="float-right">
-                            <button th:unless="${book.id}" type="submit" class="btn btn-primary" id="add">Add</button>
-                        </div>
-                        <div class="float-right" th:if="${book.id}">
-                            <button  type="submit" class="btn btn-primary"
-                                id="save">Edit</button>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </form>
         <br>
-
     </div>
 
+    <script type="text/javascript">
 
+        $(document).ready(function () {
+            $('#fileImage').change(function () {
+                showImageThumbnail(this);
+            });
+        });
+
+        function showImageThumbnail(fileInput) {
+            file = fileInput.files[0];
+            reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#thumbnail').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+    </th:block>
 </body>
 
-</html>	
+</html>
